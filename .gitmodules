@@ -1,0 +1,15 @@
+[submodule "anchorscad"]
+	path = anchorscad
+	url = git@github.com:owebeeone/anchorscad.git
+[submodule "pythonopenscad"]
+	path = pythonopenscad
+	url = git@github.com:owebeeone/pythonopenscad.git
+[submodule "datatrees"]
+	path = datatrees
+	url = git@github.com:owebeeone/datatrees.git
+[submodule "xdatatrees"]
+	path = xdatatrees
+	url = git@github.com:owebeeone/xdatatrees.git
+[submodule "anchorscad-linear"]
+	path = anchorscad-linear
+	url = git@github.com:owebeeone/anchorscad-linear.git
