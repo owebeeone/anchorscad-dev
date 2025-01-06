@@ -1,0 +1,15 @@
+black
+dataclasses_json
+debugpy
+dill
+flake8
+frozendict
+graphviz
+lxml
+manifold3d
+mypy
+numpy
+pytest
+pytest-cov
+sortedcollections
+sortedcontainers
