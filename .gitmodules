@@ -13,3 +13,12 @@
 [submodule "anchorscad-linear"]
 	path = anchorscad-linear
 	url = git@github.com:owebeeone/anchorscad-linear.git
+[submodule "anchorscad-test-tools"]
+	path = anchorscad-test-tools
+	url = git@github.com:owebeeone/anchorscad-test-tools.git
+[submodule "to_3mf"]
+	path = to_3mf
+	url = git@github.com:owebeeone/to_3mf.git
+[submodule "anchorscad-utils"]
+	path = anchorscad-utils
+	url = git@github.com:owebeeone/anchorscad-utils.git
