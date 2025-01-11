@@ -22,3 +22,6 @@
 [submodule "anchorscad-utils"]
 	path = anchorscad-utils
 	url = git@github.com:owebeeone/anchorscad-utils.git
+[submodule "anchorscad-core"]
+	path = anchorscad-core
+	url = git@github.com:owebeeone/anchorscad-core.git

@@ -7,16 +7,13 @@ import argparse
 
 
 def find_local_packages(workspace_dir: Path) -> Set[str]:
-    """Find local packages by looking for 
-    <workspace>/<package>/src/<module>/__init__.py patterns."""
+    """Find local packages by looking for Python modules in the src directory structure.
+    Returns the package names (directory names containing src/) rather than the module names."""
     local_packages = set()
     
     # Look for immediate subdirectories of workspace
     for package_dir in workspace_dir.iterdir():
-        if not package_dir.is_dir():
-            continue
-        
-        if package_dir.name == 'tests':
+        if not package_dir.is_dir() or package_dir.name == 'tests':
             continue
             
         # Check for src directory
@@ -24,12 +21,30 @@ def find_local_packages(workspace_dir: Path) -> Set[str]:
         if not src_dir.is_dir():
             continue
             
-        # Look for module directories containing __init__.py
+        # Look for potential module directories
         for module_dir in src_dir.iterdir():
-            if module_dir.is_dir() and (module_dir / '__init__.py').exists():
-                if module_dir.name == 'tests':
-                    continue
-                local_packages.add(module_dir.name)
+            if not module_dir.is_dir() or module_dir.name == 'tests':
+                continue
+                
+            # Consider it a package if any of these conditions are met:
+            # 1. Has __init__.py (traditional package)
+            # 2. Contains .py files (namespace package)
+            # 3. Contains subdirectories with .py files (nested namespace package)
+            is_package = False
+            
+            if (module_dir / '__init__.py').exists():
+                is_package = True
+            else:
+                # Check for any .py files in the directory or subdirectories
+                for item in module_dir.rglob('*.py'):
+                    is_package = True
+                    break
+            
+            if is_package:
+                # Add the package directory name instead of the module name
+                local_packages.add(package_dir.name)
+                # We can break here since we only need one valid module to identify the package
+                break
     
     return local_packages
 

@@ -1,2 +1,4 @@
 tomli
+tomli-w
 commentjson
+GitPython
