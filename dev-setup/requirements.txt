@@ -1,0 +1,2 @@
+anchorscad-utils>=0.1.1
+packaging>=23.1

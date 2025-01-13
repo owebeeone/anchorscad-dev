@@ -300,7 +300,7 @@ def write_results(results: list[VersionBumpResult]):
             if result.git_repo:
                 repo = Repo(result.git_repo)
                 # Add the modified file to staging
-                repo.index.add([str(result.file_path)])
+                repo.index.add([str(result.file_path.absolute())])
                 repo.git.commit("-m", f"Bump version to v{result.new_version}")
                 repo.git.push() 
 
