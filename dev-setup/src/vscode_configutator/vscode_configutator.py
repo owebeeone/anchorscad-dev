@@ -26,6 +26,7 @@ class VSCodeConfigUpdater:
         self.python_separator_paths = [
             "${pathSeparator}".join(p.parts[:-1]) for p in self.python_module_dirs
         ]
+        self.unix_slash_paths = [p.replace('\\', '/') for p in self.python_paths]
     
     def _load_json(self, file_path: Path) -> Dict:
         """Load JSON file if it exists, otherwise return empty dict"""
@@ -69,7 +70,7 @@ class VSCodeConfigUpdater:
         pythonpath = ';'.join(f'${{WORKSPACE_FOLDER}}{os_sep}{p}' for p in self.python_paths)
         
         # Dont add PYTHONPATH if it is empty or not set
-        ppsuffix = ";${{PYTHONPATH}}" if add_pythonpath else ""
+        ppsuffix = ";${PYTHONPATH}" if add_pythonpath else ""
             
         env_content = f"WORKSPACE_FOLDER={workspace_str}\n" \
                       f"PYTHONPATH={pythonpath}{ppsuffix}\n"
@@ -105,6 +106,13 @@ class VSCodeConfigUpdater:
         win_paths = ';'.join(f'${{workspaceFolder}}${{pathSeparator}}{p}' for p in paths)
         unix_paths = ':'.join(f'${{workspaceFolder}}${{pathSeparator}}{p}' for p in paths)
         
+        # Add the extra paths for Python analysis - using forward slashes for IDE compatibility.
+        # This setting does not work with the ${pathSeparator} expansion so we're using
+        # the unix_slash_paths which happens to work on windows with the analysis extension and 
+        # hence this should work universally.
+        settings["python.analysis.extraPaths"] = [
+            f"${{workspaceFolder}}/{p}" for p in self.unix_slash_paths
+        ]
         
         ppsuffix = ";${env:PYTHONPATH}" if add_pythonpath else ""
         

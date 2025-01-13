@@ -104,7 +104,7 @@ class VersionBumpResult:
         return self.all_tags and f"v{self.old_version}" in self.all_tags
 
 
-def fetch_and_get_fetched_tags(repo_path: Path) -> list[str]:
+def fetch_and_get_fetched_tags(repo_path: Path, verbose: bool) -> list[str]:
     """
     Fetches remote tags and returns a list of fetched tag names.
 
@@ -121,17 +121,20 @@ def fetch_and_get_fetched_tags(repo_path: Path) -> list[str]:
         repo = Repo(repo_path)
         # Store the current set of local tags
         original_local_tags = set(tag.name for tag in repo.tags)
-        print(f"Original local tags for {repo_path}: {original_local_tags}")
+        if verbose:
+            print(f"Original local tags for {repo_path}: {sorted(original_local_tags)}")
 
         repo.git.fetch("--tags")  # Fetch all remote tags
 
         # Get the updated set of local tags
         updated_local_tags = set(tag.name for tag in repo.tags)
-        print(f"Updated local tags for {repo_path}: {updated_local_tags}")  
+        if verbose:
+            print(f"Updated local tags for {repo_path}: {sorted(updated_local_tags)}")  
 
         # Determine the newly fetched tags
         fetched_tags = updated_local_tags - original_local_tags
-        print(f"Fetched tags for {repo_path}: {fetched_tags}")
+        if verbose:
+            print(f"Fetched tags for {repo_path}: {sorted(fetched_tags)}")
 
         return (updated_local_tags, list(fetched_tags))
 
@@ -141,7 +144,7 @@ def fetch_and_get_fetched_tags(repo_path: Path) -> list[str]:
 
 
 def apply_version_bump_to_file(
-    file: Path, bump_level: str, git_repo: Path | None, fetch_remote_tags: bool
+    file: Path, bump_level: str, git_repo: Path | None, fetch_remote_tags: bool, verbose: bool
 ) -> VersionBumpResult:
     """
     Applies the version bump to the specified file.
@@ -150,7 +153,7 @@ def apply_version_bump_to_file(
     fetched_tags = None
     all_tags = None
     if fetch_remote_tags:
-        all_tags, fetched_tags = fetch_and_get_fetched_tags(git_repo)
+        all_tags, fetched_tags = fetch_and_get_fetched_tags(git_repo, verbose)
 
     with open(file, "rb") as f:
         toml_result = tomli.load(f)
@@ -178,7 +181,25 @@ def is_git_repo(path: Path) -> bool:
         return False
 
 
-def apply_version_bump(sources: list[str], bump_level: str, fetch_remote_tags: bool):
+def is_repo_clean(path: Path) -> tuple[bool, str]:
+    """
+    Checks if the git repository at the given path is clean (no uncommitted changes).
+    
+    Returns:
+        tuple[bool, str]: (is_clean, status_message)
+    """
+    try:
+        repo = Repo(path)
+        if repo.is_dirty():
+            return False, f"Repository at {path} has uncommitted changes"
+        if repo.untracked_files:
+            return False, f"Repository at {path} has untracked files: {repo.untracked_files}"
+        return True, "clean"
+    except InvalidGitRepositoryError:
+        return True, "not a git repository"
+
+
+def apply_version_bump(sources: list[str], bump_level: str, fetch_remote_tags: bool, verbose: bool):
     """
     Applies the version bump to the specified sources atomically. This only applies
     the version bump to the specified sources and returns a list of results
@@ -197,7 +218,7 @@ def apply_version_bump(sources: list[str], bump_level: str, fetch_remote_tags: b
                 file = Path(source) / "pyproject.toml"
                 if file.exists():
                     result = apply_version_bump_to_file(
-                        file, bump_level, git_repo_stack[-1], fetch_remote_tags
+                        file, bump_level, git_repo_stack[-1], fetch_remote_tags, verbose
                     )
                     results.append(result)
                     source_toml_found_at = file
@@ -215,7 +236,7 @@ def apply_version_bump(sources: list[str], bump_level: str, fetch_remote_tags: b
                                         f"multiple pyproject.toml in {source} ar {source_toml_found_at} and {file}"
                                     )
                                 result = apply_version_bump_to_file(
-                                    file, bump_level, git_repo_stack[-1], fetch_remote_tags
+                                    file, bump_level, git_repo_stack[-1], fetch_remote_tags, verbose
                                 )
                                 results.append(result)
                                 source_toml_found_at = file
@@ -238,6 +259,12 @@ def write_results(results: list[VersionBumpResult]):
     """
     temp_files = []
     had_write_errors = False
+    
+    for result in results:
+        is_clean, message = is_repo_clean(result.file_path)
+        if not is_clean:
+            had_write_errors = True
+            print(f"Error: Git repository {str(result.file_path)} is not clean: {message}", file=sys.stderr)
 
     try:
         # First, try to write all temporary files, reporting any failures
@@ -267,6 +294,15 @@ def write_results(results: list[VersionBumpResult]):
                 print(f"Failed to replace {target_file} with {temp_file}: {e}", file=sys.stderr)
                 if success_count == 0:
                     raise  # If we failed on the first file, let's assume all will fail.
+                
+        # Commit the changes.
+        for result in results:
+            if result.git_repo:
+                repo = Repo(result.git_repo)
+                # Add the modified file to staging
+                repo.index.add([str(result.file_path)])
+                repo.git.commit("-m", f"Bump version to v{result.new_version}")
+                repo.git.push() 
 
     finally:
         # Clean up all remaining temporary files
@@ -276,6 +312,19 @@ def write_results(results: list[VersionBumpResult]):
             except Exception:
                 print(f"Failed to remove temporary file: {temp_file}", file=sys.stderr)
                 pass  # Best effort cleanup
+
+
+def write_tags(results: list[VersionBumpResult]):
+    """
+    Writes the new tags if they don't exist.
+    """
+    for result in results:
+        if result.git_repo:
+            repo = Repo(result.git_repo)
+            if not result.new_version_tag_already_exists():
+                repo.git.tag(f'v{result.new_version}')
+                # Push the new tag to the remote repository
+                repo.git.push("origin", f'v{result.new_version}')
 
 
 def main():
@@ -334,7 +383,7 @@ def main():
         return 1
 
     print(args.sources)
-    results = apply_version_bump(args.sources, args.bump_level, args.fetch_remote_tags)
+    results = apply_version_bump(args.sources, args.bump_level, args.fetch_remote_tags, args.verbose)
 
     if args.verbose or args.dry_run:  # Always print the results if a dry run
         print(f"Bumping version {args.bump_level} in {args.sources}")
@@ -354,6 +403,7 @@ def main():
 
     if not args.dry_run:
         write_results(results)
+        write_tags(results)
     else:
         print("*** Dry run complete. No changes were made. ***")
 
@@ -361,15 +411,15 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.argv = [
-        "release_maker.py",
-        "--dry-run",
-        "--verbose",
-        "--fetch-remote-tags",
-        "--bump-level",
-        "minor",
-        "to_3mf",
-        "pythonopenscad",
-    ]
+    # sys.argv = [
+    #     "release_maker.py",
+    #     "--dry-run",
+    #     "--verbose",
+    #     "--fetch-remote-tags",
+    #     "--bump-level",
+    #     "minor",
+    #     "to_3mf",
+    #     "pythonopenscad",
+    # ]
     print(sys.argv)
     sys.exit(main())
