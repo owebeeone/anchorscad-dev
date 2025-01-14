@@ -1,2 +1,0 @@
-WORKSPACE_FOLDER=C:\Users\gianni\git\anchorscad-dev
-PYTHONPATH=${WORKSPACE_FOLDER}\anchorscad\src;${WORKSPACE_FOLDER}\anchorscad-core\src;${WORKSPACE_FOLDER}\anchorscad-linear\src;${WORKSPACE_FOLDER}\anchorscad-test-tools\src;${WORKSPACE_FOLDER}\anchorscad-utils\src;${WORKSPACE_FOLDER}\datatrees\src;${WORKSPACE_FOLDER}\pythonopenscad\src;${WORKSPACE_FOLDER}\to_3mf\src;${WORKSPACE_FOLDER}\xdatatrees\src
