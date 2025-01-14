@@ -14,7 +14,7 @@
             ],
             "justMyCode": true,
             "env": {
-                "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
+                "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
             }
         }
     ]
