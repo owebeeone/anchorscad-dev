@@ -72,5 +72,53 @@ script to collect the dependencies and update the `requirements.txt` file.
 python dev-setup/src/collect_dependencies/collect_dependencies.py
 ```
 
+# Summary of the Submodules
 
+**1. `anchorscad-core`**
+
+* **Purpose:**  A high-level Python API for generating OpenSCAD code.  Abstracts the OpenSCAD language to enable a more Pythonic approach to 3D modeling.
+* **Key Features:**
+    * Shape hierarchy for building complex models.
+    * Anchor system for precise positioning and orientation.
+    * Parametric design support.
+    * Clean OpenSCAD code generation.
+    * Multi-material model creation.
+
+**2. `anchorscad-utils`**
+
+* **Purpose:**  Utility modules for AnchorSCAD and general use.
+* **Modules:**
+    * `colours`: Comprehensive color management.
+    * `openscad_finder`: Locates and analyzes OpenSCAD executable.
+    * `process_manager`:  Manages concurrent subprocesses.
+
+**3. `anchorscad-linear`**
+
+* **Purpose:** Linear algebra library optimized for 3D transformations in AnchorSCAD.
+* **Key Features:**
+    * `GMatrix`: 4x4 matrix for 3D transformations.
+    * `GVector`: 3D vector with homogeneous coordinates.
+    * `Angle`: Represents and manipulates angles.
+    * Transformation functions: `translate`, `scale`, `rotate`, `mirror`.
+    * Plane and line intersection calculations.
+
+**4. `pythonopenscad`**
+
+* **Purpose:** Generates OpenSCAD code from Python, supporting OpenPyScad and SolidPython APIs.
+* **Key Features:**
+    * API compatibility:  Choose between object-oriented or functional style.
+    * Type checking and code generation.
+    * Lazy union and module support.
+
+**5. `datatrees`**
+
+* **Purpose:** Manages hierarchical data structures in Python. Extends `dataclasses` with advanced features.
+* **Key Features:**
+    * Field injection, mapping, and self-defaulting.
+    * Documentation propagation.
+    * Post-init chaining.
+
+**6. `anchorscad-test-tools`**
+
+* **Purpose:** Provides `iterable_assert` for comparing iterables in unit tests with detailed output.
 
