@@ -19,5 +19,6 @@
         "${workspaceFolder}/pythonopenscad/src",
         "${workspaceFolder}/to_3mf/src",
         "${workspaceFolder}/xdatatrees/src"
-    ]
+    ],
+    "python.REPL.enableREPLSmartSend": false
 }
