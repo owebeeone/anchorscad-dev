@@ -148,14 +148,14 @@ class VSCodeConfigUpdater:
                 
         if not python_config:
             python_config = {
-                "name": "Python: Current File",
+                "name": "Anchorscad: Current File",
                 "type": "python",
                 "request": "launch",
                 "program": "${file}",
                 "cwd": "${fileDirname}",
                 "console": "integratedTerminal",
                 "args": ["--write", "--write_path_files"],
-                "justMyCode": True,
+                "justMyCode": False,
             }
             launch_config.setdefault("configurations", []).append(python_config)
         

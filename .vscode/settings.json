@@ -1,24 +1,27 @@
 {
     "terminal.integrated.env.windows": {
-        "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
+        "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}grip${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src;${env:PYTHONPATH}"
     },
     "terminal.integrated.env.linux": {
-        "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src:${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src:${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src:${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src:${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
+        "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src:${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src:${workspaceFolder}${pathSeparator}grip${pathSeparator}src:${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src:${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src:${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src;${env:PYTHONPATH}"
     },
     "terminal.integrated.env.osx": {
-        "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src:${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src:${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src:${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src:${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
+        "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src:${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src:${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src:${workspaceFolder}${pathSeparator}grip${pathSeparator}src:${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src:${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src:${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src;${env:PYTHONPATH}"
     },
     "git.ignoreLimitWarning": true,
     "python.analysis.extraPaths": [
         "${workspaceFolder}/anchorscad/src",
         "${workspaceFolder}/anchorscad-core/src",
+        "${workspaceFolder}/anchorscad-core/src",
         "${workspaceFolder}/anchorscad-linear/src",
         "${workspaceFolder}/anchorscad-test-tools/src",
         "${workspaceFolder}/anchorscad-utils/src",
         "${workspaceFolder}/datatrees/src",
+        "${workspaceFolder}/grip/src",
         "${workspaceFolder}/pythonopenscad/src",
         "${workspaceFolder}/to_3mf/src",
         "${workspaceFolder}/xdatatrees/src"
     ],
-    "python.REPL.enableREPLSmartSend": false
+    "python.REPL.enableREPLSmartSend": false,
+    "python.envFile": "${workspaceFolder}/.vscode/.env"
 }

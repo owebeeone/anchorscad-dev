@@ -411,15 +411,18 @@ def main():
 
 
 if __name__ == "__main__":
-    # sys.argv = [
-    #     "release_maker.py",
-    #     "--dry-run",
-    #     "--verbose",
-    #     "--fetch-remote-tags",
-    #     "--bump-level",
-    #     "minor",
-    #     "to_3mf",
-    #     "pythonopenscad",
-    # ]
-    print(sys.argv)
+    if len(sys.argv) == 1:
+        sys.argv = [
+            "release_maker.py",
+        #    "--help",
+        #    "--dry-run",
+            "--verbose",
+            "--git-tag",
+            "--fetch-remote-tags",
+            "--bump-level",
+            "minor",
+        #    "to_3mf",
+            "pythonopenscad",
+        ]
+    print(' '.join(sys.argv))
     sys.exit(main())

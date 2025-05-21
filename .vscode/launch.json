@@ -1,9 +1,18 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "justMyCode": false,
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "cwd": "${fileDirname}",
@@ -12,9 +21,9 @@
                 "--write",
                 "--write_path_files"
             ],
-            "justMyCode": true,
+            "justMyCode": false,
             "env": {
-                "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
+                "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}grip${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src;${env:PYTHONPATH}"
             }
         }
     ]
