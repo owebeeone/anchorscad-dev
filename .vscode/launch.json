@@ -22,7 +22,20 @@
             ],
             "justMyCode": false,
             "env": {
-                "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-bullet${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}grip${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}view-mesh${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src;${env:PYTHONPATH}"
+                "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
+            }
+        },
+        {
+            "name": "Python: Debug Library Code",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "debugStdLib": true,
+            "subProcess": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}${pathSeparator}anchorscad${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-core${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-linear${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-test-tools${pathSeparator}src;${workspaceFolder}${pathSeparator}anchorscad-utils${pathSeparator}src;${workspaceFolder}${pathSeparator}datatrees${pathSeparator}src;${workspaceFolder}${pathSeparator}pythonopenscad${pathSeparator}src;${workspaceFolder}${pathSeparator}to_3mf${pathSeparator}src;${workspaceFolder}${pathSeparator}xdatatrees${pathSeparator}src"
             }
         }
     ]
